@@ -9,5 +9,9 @@ require_relative 'clean/service_chain'
 require_relative 'clean/service_adapter'
 
 module Clean
-  
+
+  def self.root
+    File.dirname __dir__
+  end
+
 end
