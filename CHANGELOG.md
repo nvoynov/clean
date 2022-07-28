@@ -1,15 +1,11 @@
 ## [Unreleased]
 
-TODO
+## [0.2.0] - 2022-07-28
 
-- [ ] fix gemfile for github workflow
-- [ ] gateway error to failure Storage::Failure!
-- [x] move to `Clean::Extra` adapter, validator, chain
-- [ ] add entity and value to `Clean`
-- [ ] add storage, hash_storage, maybe logr to `Clean::Extra`
-- [ ] update readme (point punch links)
-- [ ] release v0.2.0 (sentry, service, value, entity, gateway) plus other stuff in extra ... the more I think the more I want to throw chain and validator ...
-- [ ] test punch with v0.2.0
+- Added new concepts Entity, Value, Storage interface, and HashStorage implementation
+- Service and Gateway improved by its own Failure exception
+- Service class got default constructor that just stores args, kwargs, and block
+- Provided some examples based on Punch
 
 ## [0.1.0] - 2022-07-11
 

@@ -24,21 +24,29 @@ module Clean
   class Service
     Failure = Class.new(StandardError)
 
-    def self.call(*args, **kwargs, &block)
-      new(*args, **kwargs, &block).call
+    class << self
+      def call(*args, **kwargs, &block)
+        new(*args, **kwargs, &block).call
+      end
+
+      def inherited(klass)
+        klass.const_set(:Failure, Class.new(klass::Failure))
+        super
+      end
     end
 
     private_class_method :new
+
+    def initialize(*args, **kwargs, &block)
+      @args = args
+      @kwargs = kwargs
+      @block = block
+    end
 
     def call
       fail Failure, "#{self.class.name}#call must be overrided"
     end
 
-    # from polist gem
-    def self.inherited(klass)
-      klass.const_set(:Failure, Class.new(klass::Failure))
-      super
-    end
   end
 
 end
