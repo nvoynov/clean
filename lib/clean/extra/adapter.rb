@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'service'
+require_relative '../service'
 
 module Clean
 
@@ -21,7 +21,7 @@ module Clean
   #
   # @todo take into account that the module will be included
   #       and its methods should
-  module ServiceAdapter
+  module Adapter
     Failure = Class.new(StandardError)
 
     class << self
@@ -86,12 +86,12 @@ module Clean
     # @params params [*params] face params as the face got it from user
     # @retrun [Hash] sevice params suitable for service.call(**adapt)
     def adapt(*params)
-      raise Failure, "#adapt must be overriden"
+      fail Failure, "#adapt must be overriden"
     end
 
     # present result of service.call to tech face
     def present(result)
-      raise Failure, "#present must be overriden"
+      fail Failure, "#present must be overriden"
     end
 
     # hadnler for Service::Failure

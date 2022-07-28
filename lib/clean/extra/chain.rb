@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'service'
+require_relative '../service'
 
 module Clean
 
@@ -34,9 +34,9 @@ module Clean
   #    present: [PlusService, :x]  # services presentation inside the context
   #  )                             # => 9
   #
-  class ServiceChain < Service
+  class Chain < Service
     def initialize(*services, **context)
-      raise ArgumentError, 'services for chain required' if services.empty?
+      fail ArgumentError, 'services for chain required' if services.empty?
       @services = services
       @context = Hash[context]
       @presenter = separate_presenter
@@ -56,7 +56,7 @@ module Clean
 
       def present(service, result)
         presenter = @presenter[service]
-        raise Failure.new("#{service} must be either presented or return Hash"
+        fail Failure.new("#{service} must be either presented or return Hash"
         ) unless presenter || result.is_a?(Hash)
         !!presenter ? @context[presenter] = result : @context.merge!(result)
       end
@@ -64,7 +64,7 @@ module Clean
       def separate_presenter
         return {} unless @context[:present]
         src = @context.delete(:present)
-        raise ArgumentError.new(
+        fail ArgumentError.new(
           "present: [A, :a, B, :b] must be an Array of even size"
         ) unless src.is_a?(Array) && src.size.even?
         ary = []; ary << src.shift(2) until src.empty?
@@ -80,7 +80,7 @@ module Clean
         # puts "kwargs(service) #{params}"
         params.each_with_object({}) do |(spec, kw), memo|
           value = context_value(kw)
-          raise Failure.new("#{service} required argument :#{kw} not found"
+          fail Failure.new("#{service} required argument :#{kw} not found"
           ) if spec == :keyreq && value.nil?
           next unless value
           memo[kw] = value

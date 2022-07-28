@@ -1,9 +1,6 @@
-require_relative '../test_helper'
-require 'clean/service'
-require 'clean/service_adapter'
-include Clean
+require_relative '../../test_helper'
 
-describe ServiceAdapter do
+describe Adapter do
 
   Service1 = Class.new(Service) do
     def initialize(a:, b:)
@@ -36,7 +33,7 @@ describe ServiceAdapter do
 
   let(:adopted) {
     Class.new do
-      include ServiceAdapter
+      include Adapter
 
       @services = [
         {service: Service1, :method => :call_service1},
@@ -44,7 +41,7 @@ describe ServiceAdapter do
         {service: NoParams, :method => :call_noparams},
         {service: NoResult, :method => :call_noresult}]
 
-      mount_services *@services do |service:, method:|
+      mount_services(*@services) do |service:, method:|
         define_method(method) do |**kwargs|
           service_call_strategy(service, kwargs)
         end
@@ -68,7 +65,7 @@ describe ServiceAdapter do
 
       dummy.call_service1(a: 1, b: 2)
       dummy.call_service2(a: 9, b: 3)
-      err = assert_raises(ServiceAdapter::Failure) {
+      err = assert_raises(Adapter::Failure) {
         dummy.call_service1(a: 1)
       }
       assert_match 'must be provided required prameters b:', err.message

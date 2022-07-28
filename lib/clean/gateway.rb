@@ -30,16 +30,15 @@ module Clean
   #    end
   module Port
 
-    class Error < StandardError
-    end
+    Failure = Class.new(StandardError)
 
     def gateway
-      raise Error, "port constant required" unless @klass
+      fail Failure, "port constant required" unless @klass
       @gateway ||= @klass.new
     end
 
     def gateway=(gateway)
-      raise ArgumentError.new("required an instance of #{@klass}"
+      fail ArgumentError.new("required an instance of #{@klass}"
       ) unless gateway.is_a?(@klass)
       @gateway = gateway
     end
@@ -50,9 +49,18 @@ module Clean
   end
 
   class Gateway
-    def self.port
-      klass = self
-      Module.new { extend Port; port klass }
+    Failure = Class.new(StandardError)
+
+    class << self
+      def port
+        klass = self
+        Module.new { extend Port; port klass }
+      end
+
+      def inherited(klass)
+        klass.const_set(:Failure, Class.new(klass::Failure))
+        super
+      end
     end
   end
 

@@ -1,6 +1,4 @@
 require_relative '../test_helper'
-require 'clean/service'
-include Clean
 
 describe Service do
   describe '#call was not overrided' do
@@ -8,7 +6,7 @@ describe Service do
       Class.new(Service)
     }
 
-    it 'must raise Failure' do
+    it 'must fail' do
       assert_raises(Service::Failure) { service.() }
     end
   end

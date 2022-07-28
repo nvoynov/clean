@@ -1,7 +1,4 @@
-require_relative '../test_helper'
-require 'clean/sentry'
-require 'clean/validator'
-include Clean
+require_relative '../../test_helper'
 
 describe Validator do
 
@@ -38,7 +35,7 @@ describe Validator do
   end
 
   describe '#errors!' do
-    it 'must raise Validator::Failure' do
+    it 'must fail' do
       err = assert_raises(Validator::Failure) {
         Validator.errors!(
           [1, :val, str_sentry],

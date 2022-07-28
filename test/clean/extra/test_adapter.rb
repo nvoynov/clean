@@ -1,9 +1,6 @@
-require_relative '../test_helper'
-require 'clean/service'
-require 'clean/service_adapter'
-include Clean
+require_relative '../../test_helper'
 
-describe ServiceAdapter do
+describe Adapter do
 
   let(:service) {
     Class.new(Service) do
@@ -18,7 +15,7 @@ describe ServiceAdapter do
 
   let(:adapter) {
     Class.new do
-      include ServiceAdapter
+      include Adapter
       public :service_params
 
       def adapt(params)
@@ -41,7 +38,7 @@ describe ServiceAdapter do
         end
       end
 
-      assert_raises(ServiceAdapter::Failure) {
+      assert_raises(Adapter::Failure) {
         dummy.new.service_call_strategy(service, {a: 1, b: 2})
       }
     end
@@ -49,11 +46,11 @@ describe ServiceAdapter do
     it 'must fail for missing service required params' do
       dummy.service_call_strategy(service, {a: 1, b: 2})
 
-      assert_raises(ServiceAdapter::Failure) {
+      assert_raises(Adapter::Failure) {
         dummy.service_call_strategy(service, {a: 1})
       }
 
-      assert_raises(ServiceAdapter::Failure) {
+      assert_raises(Adapter::Failure) {
         dummy.service_call_strategy(service, {b: 1})
       }
     end

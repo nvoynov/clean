@@ -1,7 +1,4 @@
 require_relative '../test_helper'
-require 'clean/gateway'
-require 'clean/service'
-include Clean
 
 describe Port do
   describe '#port' do
@@ -38,8 +35,8 @@ describe Port do
       assert_instance_of Gateway, dummy.gateway
     end
 
-    it 'must raise error when no plug provided' do
-      assert_raises(Port::Error) { wrong.gateway }
+    it 'must fail when no gateway provided' do
+      assert_raises(Port::Failure) { wrong.gateway }
     end
   end
 

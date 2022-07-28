@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'sentry'
+require_relative '../sentry'
 
 module Clean
 

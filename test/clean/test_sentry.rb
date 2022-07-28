@@ -1,6 +1,4 @@
 require_relative '../test_helper'
-require 'clean/sentry'
-include Clean
 
 describe Sentry do
 
@@ -48,7 +46,7 @@ describe Sentry do
       assert_equal valid, sentry.(valid)
     end
 
-    it 'must raise ArgumentError' do
+    it 'must fail for wrong value' do
       err = assert_raises(ArgumentError) { sentry.(wrong) }
       assert_match errmsg, err.message
     end

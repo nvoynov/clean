@@ -31,7 +31,7 @@ module Clean
     private_class_method :new
 
     def call
-      raise Failure, "#{self.class.name}#call must be overrided"
+      fail Failure, "#{self.class.name}#call must be overrided"
     end
 
     # from polist gem
