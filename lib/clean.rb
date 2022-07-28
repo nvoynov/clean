@@ -2,8 +2,11 @@
 
 require_relative "clean/version"
 require_relative 'clean/sentry'
+require_relative 'clean/entity'
+require_relative 'clean/value'
 require_relative 'clean/service'
 require_relative 'clean/gateway'
+require_relative 'clean/storage'
 require_relative 'clean/extra'
 
 module Clean
