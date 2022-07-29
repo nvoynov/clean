@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+> There are things... it's better for you not to know. Once they're exposed they can't be unseen
+
 ## [0.2.0] - 2022-07-28
 
 - Added new concepts Entity, Value, Storage interface, and HashStorage implementation
